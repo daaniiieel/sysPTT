@@ -94,6 +94,7 @@ public class TrayService {
 			    System.out.println("> hotkey pressed");
 			    Process p = Runtime.getRuntime().exec("amixer set Capture toggle");
 			    p.waitFor();
+
 			    trayIcon.displayMessage("hotkey pressed", "mic unmuted", MessageType.INFO);
 			    trayIcon.setImage(ImageIO
 				    .read(new ByteArrayInputStream(Base64.getDecoder().decode(logo.micEnabledString))));
@@ -107,9 +108,8 @@ public class TrayService {
 		}
 	    };
 	    Provider provider = Provider.getCurrentProvider(false);
-	    provider.register(KeyStroke.getKeyStroke("control SPACE"), micEnableListener);
-	    provider.register(KeyStroke.getKeyStroke("control released SPACE"), micDisableListener);
-
+	    provider.register(KeyStroke.getKeyStroke("INSERT"), micEnableListener);
+	    provider.register(KeyStroke.getKeyStroke("released INSERT"), micDisableListener);
 	    ActionListener exitListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    System.out.println("> exit");
